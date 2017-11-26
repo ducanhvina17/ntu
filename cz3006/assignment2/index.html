@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="CZ3006 Assignement 2" content="">
+	<meta name="unkn0wnxx" content="">
+
+	<title>CZ3006 Net-Centric Computing Assignment 2</title>
+
+	<!-- CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+	<!-- JavaScript -->
+	<script src="js/formvalidation.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">CZ3006 Net-Centric Computing Assignment 2</a>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-offset-3">
+				<!-- Form for user to input information -->
+				<form class="form-horizontal" id="paymentform" method="post" action="payment.php">
+					<!-- Textbox for name -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Name  :</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" onchange="ValidateName(this)" />
+						</div>
+					</div>
+					<!-- Textbox for number of apples -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Apples:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="apples" name="apples" placeholder="Enter the number of apples" onchange="ValidateInput(this)" />
+						</div>
+					</div>
+					<!-- Textbox for number of oranges -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Oranges :</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="oranges" name="oranges" placeholder="Enter the number of oranges" onchange="ValidateInput(this)" />
+						</div>
+					</div>
+					<!-- Textbox for number of bananas -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Bananas :</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="bananas" name="bananas" placeholder="Enter the number of bananas" onchange="ValidateInput(this)" />
+						</div>
+					</div>
+					<!-- Radio box for payment method -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Payment Method :</label>
+						<div class="col-sm-5">
+							<input type="radio" name="payment" id="visa" value="visa" checked />
+							Visa
+							<br>
+							<input type="radio" name="payment" id="mastercard" value="mastercard" />
+							Master Card
+							<br>
+							<input type="radio" name="payment" id="discover" value="discover" />
+							Discover
+						</div>
+					</div>
+					<!-- Textbox to show total cost -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Total Cost :</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" id="totalcost" name="totalcost" disabled/>
+						</div>
+					</div>
+					<br/>
+					<!-- Submit button -->
+					<div class="form-actions">
+						<div class="col-sm-offset-2">
+							<button type="submit" name="Submit" id="submitBtn" class="btn btn-primary btn-lg">Submit</button>
+							<button type="reset" class="btn btn-default btn-lg">Reset</button>
+						</div>
+					</div>
+					<br/>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p>CZ3006 Net-Centric Computing Assignment 2 by Lee Xing Zhao</p>
+		</div>
+	</footer>
+</body>
+</html>

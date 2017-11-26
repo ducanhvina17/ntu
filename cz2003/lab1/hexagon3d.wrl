@@ -1,0 +1,46 @@
+#VRML V2.0 utf8
+
+Background {0 0 0}
+
+Shape {
+    appearance Appearance {
+        material Material {
+            diffuseColor     0.75 1 0   #red=1, green=0, blue=0
+            specularColor    1 1 1   #red=1, green=1, blue=1
+            transparency 0   # try values between 0 and 1
+            shininess 1      # shiny surface, try values between 0 and 1
+        }
+    }
+    
+    geometry IndexedFaceSet {
+        coord Coordinate {
+            point [
+                # bottom vertices
+                -1.0    -0.5    0,      #vertex 0
+                -0.6    -0.5    0.6,    #vertex 1
+                0.6     -0.5    0.6,    #vertex 2
+                1.0     -0.5    0,      #vertex 3
+                0.6     -0.5    -0.6,   #vertex 4
+                -0.6    -0.5    -0.6,   #vertex 5
+                # top vertex
+                -1.0    0.5     0,      #vertex 6
+                -0.6    0.5     0.6,    #vertex 7
+                0.6     0.5     0.6,    #vertex 8
+                1.0     0.5     0,      #vertex 9
+                0.6     0.5     -0.6,   #vertex 10
+                -0.6    0.5     -0.6    #vertex 11
+            ]
+        }
+
+        coordIndex [
+            0,  5,  4,  3,  2,  1,  -1,     # bottom square
+            1,  2,  8,  7,  -1,             # front square
+            0,  1,  7,  6,  -1,             # front left square
+            2,  3,  9,  8,  -1,             # front right square
+            5,  11, 10, 4,  -1,             # back square
+            0,  6,  11, 5,  -1,             # back left square
+            3,  4,  10, 9,  -1,             # back right square
+            6,  7,  8,  9,  10, 11, -1,     # top square
+        ]
+    }
+}

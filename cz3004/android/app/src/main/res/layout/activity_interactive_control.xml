@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_interactive_control"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mdp17.group12.labmoverscontroller.InteractiveControlActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/robot_current_status"
+        android:text="@string/robot_initial_status"
+        android:gravity="center"
+        android:textSize="@dimen/custom_text_size_medium"
+        android:padding="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/my_toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/maze_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/robot_current_status"
+        android:orientation="vertical"></RelativeLayout>
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/move_forward"
+        android:src="@mipmap/ic_forward_caret"
+        android:scaleType="fitCenter"
+        android:backgroundTint="@color/colorGreen"
+        android:onClick="moveForward" />
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/maze_layout"
+        android:layout_above="@id/move_forward"
+        android:id="@+id/turn_left"
+        android:src="@mipmap/ic_left_caret"
+        android:scaleType="fitCenter"
+        android:backgroundTint="@color/colorLightGreen"
+        android:onClick="turnLeft"/>
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/maze_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/move_forward"
+        android:id="@+id/turn_right"
+        android:src="@mipmap/ic_right_caret"
+        android:scaleType="fitCenter"
+        android:backgroundTint="@color/colorLightGreen"
+        android:onClick="turnRight"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="@dimen/toolbar_elevation"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+</RelativeLayout>

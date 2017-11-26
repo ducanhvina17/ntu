@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Comparison List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/navsearch.js"></script>
+    <script src="/js/comparisonlist.js"></script>
+    <script>
+    GetSchool("<%= schools %>");
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div id="navbar" class="collapse navbar-collapse pull-right">
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/secondaryschool">Secondary School</a></li>
+                    <li><a href="/forum">Forum</a></li>
+                    <li class="active"><a href="/comparisonlist">Comparison List<span class="sr-only">(current)</span></a></li>
+                    <% if (typeof(username) == 'undefined' || username === "")
+                    { %>
+                        <li><a href="/login">Login</a></li>
+                    <% }
+                    else
+                    { %>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= username %><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/favourite">Favourite List</a></li>
+                                <li><a href="/userlogout">Logout</a></li>
+                            </ul>
+                        </li>
+                    <% } %>
+                    <form class="navbar-form navbar-right" action="/searchindividualschool" method="post" onsubmit="return isEmpty()">
+                        <div class="form-group">
+                            <input type="text" name="schoolname" id="navsearch" class="form-control navsearch" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br><br><br>
+    <div class="container">
+        <h1 class="text-center">Comparison List</h1>
+        <br><br><br><br>
+        <% if (typeof(data) != 'undefined')
+        { %>
+            <% if (data.name.length !== 0)
+            { %>
+                <table class="table table-striped table-bordered resultTable">
+                    <tr>
+                        <th></th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                                <td><a href="/individualschoollink/<%= data.name[i].replace(/ /g, "+") %>"><%= data.name[i] %></a></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <th>Location</th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                            <td><%= data.location[i] %></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <th>Area</th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                            <td><%= data.area[i] %></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <th>Telephone</th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                            <td><%= data.telephone[i] %></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <th>Nearest MRT</th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                            <td><%= data.mrt[i] %></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <th>Bus</th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                            <td><%= data.bus[i] %></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <th>Subjects</th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                            <td><%= data.subject[i] %></td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <% for (i = 0; i < data.name.length; i++)
+                        { %>
+                            <td>
+                                <a href="/RemoveFromCompareC/<%= data.name[i].replace(/ /g, '+') %>" name="<%= data.name[i].replace(/ /g, '+') %>" class="btn btn-danger" id="compareBtn" >Compare</a>
+                                <% if (typeof(username) != 'undefined' && username !== "")
+                                { %>
+                                    <% if (list.indexOf(data.name[i]) == -1)
+                                    { %>
+                                        <a name="<%= data.name[i].replace(/ /g, '+') %>" class="btn btn-success" id="favBtn" href="#" onclick="FavClicked(this)">Favorite</a>
+                                    <% }
+                                    else
+                                    { %>
+                                        <a name="<%= data.name[i].replace(/ /g, '+') %>" class="btn btn-danger" id="favBtn" href="#" onclick="UnfavClicked(this);">Favorite</a>
+                                    <% } %>
+                                <% } %>
+                            </td>
+                        <% } %>
+                    </tr>
+                </table>
+            <% }
+            else
+            { %>
+                <br><br><br><br>
+                <h1 class="text-center">No result found!</h1>
+            <% } %>
+        <% } %>
+    </div>
+</body>
+</html>

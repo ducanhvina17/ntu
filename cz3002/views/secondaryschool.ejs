@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secondary School</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/navsearch.js"></script>
+    <script src="/js/toggletable.js"></script>
+    <script src="/js/secondaryschool.js"></script>
+    <script>
+    GetSchool("<%= schools %>");
+    GetSecondarySchool("<%= secondaryschools.area %>", "<%= secondaryschools.cca %>", "<%= secondaryschools.subject %>", "<%= secondaryschools.mrt %>");
+
+    <% if (typeof(clist) != 'undefined')
+    { %>
+        var clist = "<%= clist %>".split(",");
+
+        var cl = 0;
+
+        for (i=0; i < 3; i++)
+            if (clist[i] !== "")
+                cl++;
+
+        CheckCompare(cl);
+    <% } %>
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div id="navbar" class="collapse navbar-collapse pull-right">
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/secondaryschool">Secondary School<span class="sr-only">(current)</span></a></li>
+                    <li><a href="/forum">Forum</a></li>
+                    <li><a href="/comparisonlist">Comparison List</a></li>
+                    <% if (typeof(username) == 'undefined' || username === "")
+                    { %>
+                        <li><a href="/login">Login</a></li>
+                    <% }
+                    else
+                    { %>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= username %><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/favourite">Favourite List</a></li>
+                                <li><a href="/userlogout">Logout</a></li>
+                            </ul>
+                        </li>
+                    <% } %>
+                    <form class="navbar-form navbar-right" action="/searchindividualschool" method="post" onsubmit="return isEmpty()">
+                        <div class="form-group">
+                            <input type="text" name="schoolname" id="navsearch" class="form-control navsearch" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br><br><br>
+    <div class="container">
+        <h1 class="text-center"> Search Page</h1>
+        <br><br>
+        <form name="searchForm" action="/searchsecondaryschool" method="post" onsubmit="return ValidateInput()">
+            <table class="table" width="100%">
+                <tr>
+                    <td align="right" >
+                        Type
+                    </td>
+                    <td align="left" >
+                        <select id="type" name="type">
+                            <option value="range">range</option>
+                            <option value="min">minimum score</option>
+                        </select>
+                    </td>
+                    <td align="right" >
+                        Category
+                    </td>
+                    <td align="left">
+                        <select id="category" name="category">
+                            <option value="e">Express</option>
+                            <option value="n">Normal</option>
+                            <option value="t">Technical</option>
+                        </select>
+                    </td>
+                    <td align="right" >
+                        Score
+                    </td>
+                    <td align="left">
+                        <input type="text" name="score" id="score" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" >
+                        Area
+                    </td>
+                    <td align="left">
+                        <input type="text" name="area" class="area" id="area" />
+                    </td>
+                    <td align="right" >
+                        CCA
+                    </td>
+                    <td align="left">
+                        <input type="text" name="cca" class="cca" id="cca" />
+                    </td>
+                    <td align="right" colspan="1">
+                        Subjects
+                    </td>
+                    <td align="left" colspan="3">
+                        <input type="text" name="subject" class="subject" id="subject" />
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td colspan="10" align="center" style="text-align: center">
+                        <input type="submit" id="simple_submit" value="Submit" class="btn btn-default" />
+                        <input type="button" id="ShowBtn" onclick="toggleTable();" value="Show Advanced Settings" class="btn btn-default" />
+                    </td>
+                </tr>
+            </table>
+            <table class="table" border="0" width="100%" id="advanced" style="display: none;">
+                <tr align="center">
+                    <td colspan="10"><h3>Advanced Search</h3></td>
+                </tr>
+                <tr>
+                    <td align="right">Code: </td>
+                    <td align="left" colspan="2"><input type="textfield" name= "code" class="btn btn-default" size="10" id="code" /></td>
+                    <td align="right">MRT: </td>
+                    <td align="left" colspan="2"><input type="textfield" name= "mrt" class="btn btn-default mrt" size="10" id="mrt" /></td>
+                    <td align="right">Bus: </td>
+                    <td align="left" colspan="2"><input type="textfield" name= "bus" class="btn btn-default" size="10" id="bus" /></td>
+                    <td align="center" co>Availability of Shuttle Bus <input type="checkbox" id="shuttlebus"></td>
+                </tr>
+                <tr>
+                    <td colspan="10" align="center" style="text-align: center">
+                        <input type="submit" value="Submit" id="advanced_submit" class="btn btn-default" />
+                        <input type="button" id="HideBtn" onclick="toggleTable();" value="Hide Advanced Settings" class="btn btn-default" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <% if (typeof(data) != 'undefined')
+        { %>
+            <% if (data.name.length !== 0)
+            { %>
+                <table class="table table-striped table-bordered resultTable">
+                    <tr class>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <!-- <th>Area</th> -->
+                        <th>Telephone</th>
+                        <th>Nearest MRT</th>
+                        <th>Bus</th>
+                        <th>PLSE Score</th>
+                        <th></th>
+                        <% if (typeof(username) != 'undefined' && username !== "")
+                        { %>
+                            <th></th>
+                        <% } %>
+                    </tr>
+                    <% for (i = 0; i < data.name.length; i++)
+                    { %>
+                    <tr>
+                        <td><a href="/individualschoollink/<%= data.name[i].replace(/ /g, "+") %>"><%= data.name[i] %></a></td>
+                        <td><%= data.location[i] %></td>
+                        <!-- <td><%= data.area[i] %></td> -->
+                        <td><%= data.telephone[i] %></td>
+                        <td><%= data.mrt[i] %></td>
+                        <td><%= data.bus[i] %></td>
+                        <td><%= data.psle[i] %></td>
+                        <td>
+                            <% if (typeof(clist) != 'undefined')
+                            { %>
+                                <% if (clist.indexOf(data.name[i]) == -1)
+                                { %>
+                                    <a name="<%= data.name[i].replace(/ /g, '+') %>" class="btn btn-success" id="compareBtn"  onclick="AddCompareClicked(this)">Compare</a>
+                                <% }
+                                else
+                                { %>
+                                    <a name="<%= data.name[i].replace(/ /g, '+') %>" class="btn btn-danger" id="compareBtn"  onclick="RmCompareClicked(this);">Compare</a>
+                                <% } %>
+                            <% } %>
+                        </td>
+                        <% if (typeof(username) != 'undefined' && username !== "")
+                        { %>
+                            <td>
+                            <% if (list.indexOf(data.name[i]) == -1)
+                            { %>
+                                <a name="<%= data.name[i].replace(/ /g, '+') %>" class="btn btn-success" id="favBtn" href="#" onclick="FavClicked(this)">Favorite</a>
+                            <% }
+                            else
+                            { %>
+                                <a name="<%= data.name[i].replace(/ /g, '+') %>" class="btn btn-danger" id="favBtn" href="#" onclick="UnfavClicked(this);">Favorite</a>
+                            <% } %>
+                            </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+                </table>
+            <% }
+            else
+            { %>
+                <br><br><br><br>
+                <h1 class="text-center">No result found!</h1>
+            <% } %>
+        <% } %>
+    </div>
+</body>
+</html>

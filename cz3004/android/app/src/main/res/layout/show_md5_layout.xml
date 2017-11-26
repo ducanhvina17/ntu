@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorOrange">
+
+    <TextView
+        android:id="@+id/coverage_string_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/coverage_string_label"
+        android:textAllCaps="true"
+        android:textSize="@dimen/custom_text_size_large"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        android:padding="@dimen/padding_large"/>
+
+    <TextView
+        android:id="@+id/coverage_string_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/coverage_string_label"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/padding_large"
+        android:textSize="@dimen/custom_text_size_medium"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/obstacle_string_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/coverage_string_value"
+        android:gravity="center_horizontal"
+        android:text="@string/obstacle_string_label"
+        android:textAllCaps="true"
+        android:textSize="@dimen/custom_text_size_large"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        android:padding="@dimen/padding_large"/>
+
+    <TextView
+        android:id="@+id/obstacle_string_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/obstacle_string_label"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/padding_large"
+        android:textSize="@dimen/custom_text_size_medium"
+        android:textStyle="bold"/>
+</RelativeLayout>

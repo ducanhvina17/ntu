@@ -1,0 +1,56 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.ui-menu {
+    z-index: 99999;
+}
+
+.navbar {
+    color: white;
+    background-color: black;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-default .navbar-nav > li >a:focus, .navbar-default .navbar-nav > li >a:hover {
+    color: white;
+    background-color: #9b5a5a;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: white;
+    background-color: #9b5a5a;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: white;
+    background-color: #9b5a5a;
+}
+
+.dropdown-menu>li>a {
+    color: white;
+    background-color: black;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    color: white;
+    background-color: #9b5a5a;
+}
+
+.resultTable>tbody>tr>th {
+    color: white;
+    background-color: black;
+}
+
+.resultTable>tbody>tr>th>a {
+    color: white;
+}
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/obstacles_reset"
+        app:showAsAction="never"
+        android:title="@string/menu_item_obstacle"/>
+
+    <item
+        android:id="@+id/robot_reset"
+        android:showAsAction="never"
+        android:title="@string/menu_item_robot"/>
+</menu>

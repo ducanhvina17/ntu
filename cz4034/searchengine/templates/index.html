@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>Information Retrieval</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{% static 'js/piechart.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div align="center"><img src="{% static 'img/smallhappybird.jpg' %}"/></div>
+    <h1 class="text-center">News Tweets</h1>
+    <!-- Crawl button -->
+    <br>
+    <div class="container" align="center">
+        <div class="dropdown" style="width:150px;">
+            <button class="btn btn-primary dropdown-toggle" style="width:160px" type="button" data-toggle="dropdown">Crawl
+                <span class="caret" ></span></button>
+                <ul class="dropdown-menu" style="height:300px; width:100px;">
+                    <li><a href="/searchengine/crawl/?location=">Any Location</a></li>
+                    <li><a href="/searchengine/crawl/?location=China">China</a></li>
+                    <li><a href="/searchengine/crawl/?location=Japan">Japan</a></li>
+                    <li><a href="/searchengine/crawl/?location=Indonesia">Indonesia</a></li>
+                    <li><a href="/searchengine/crawl/?location=Malaysia">Malaysia</a></li>
+                    <li><a href="/searchengine/crawl/?location=Philippines">Philippines</a></li>
+                    <li><a href="/searchengine/crawl/?location=Singapore">Singapore</a></li>
+                    <li><a href="/searchengine/crawl/?location=South Korea">South Korea</a></li>
+                    <li><a href="/searchengine/crawl/?location=Thailand">Thailand</a></li>
+                    <li><a href="/searchengine/crawl/?location=United Kingdom">United Kingdom</a></li>
+                    <li><a href="/searchengine/crawl/?location=United States">United States</a></li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" >
+                    <div class="input-group" id="adv-search">
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group" >
+                                <!-- Advanced search -->
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <form class="form-horizontal" action="/searchengine/advanced_search/" role="form" method="post">
+                                            {% csrf_token %}
+                                            {{ advancedform }}
+                                            <button type="submit" class="btn btn-primary nested-button" name="dropdownButton" value="dropdownSearch">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Basic search -->
+                                <div style="width:430px;">
+                                    <form class="form-horizontal" action="/searchengine/basic_search/" role="form" method="post">
+                                        {% csrf_token %}
+                                        {{ basicform }}
+                                        <button type="submit" class="btn btn-primary" name="mainButton"  value="mainSearch">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Word suggestions -->
+            {% if suggestions %}
+            <br><br>
+            <div class="row">
+                <div class="col-xs-8 col-xs-push-2">
+                    <p><strong>Word suggestions:</strong></p>
+                    {% for suggestion in suggestions %}
+                        {% for word in suggestion %}
+                        <div class="col-xs-3">
+                            <p>{{ word }}</p>
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <!-- Display query result -->
+            {% if query_result %}
+            <div class="row">
+                <br><br><br>
+                <h2 class="text-center">Query Result: {{ query_result|length }} Tweets</h2>
+                <br><br><br>
+                <div class="col-xs-8 col-xs-push-2">
+                    <table class="table table-strip">
+                        <thead>
+                            <th>No.</th>
+                            <th>Twitter ID</th>
+                            <th>Tweet</th>
+                            <th>Category</th>
+                        </thead>
+                        <tbody>
+                            {% for res in query_result %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ res.Username.0 }}</td>
+                                <td>{{ res.Tweet.0 }}</td>
+                                <td>{{ res.Category.0 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Display crawl result -->
+            {% if crawl_result %}
+            <br>
+            <!-- Cateogry pie chart -->
+            <div class="row">
+                <div class="piechart col-sm-offset-2" id="piechart" style="width: 900px; height: 500px;"></div>
+                <script type="text/javascript">
+                    category = "{{ category }}"
+                    DisplayPieChart(category);
+                </script>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 col-xs-push-2">
+                    <h2 class="text-center">Crawl Result: {{ crawl_result|length }} Tweets</h2>
+                    <br><br><br>
+                    <table class="table table-strip">
+                        <thead>
+                            <th>No.</th>
+                            <th>Twitter ID</th>
+                            <th>Tweet</th>
+                            <th>Category</th>
+                        </thead>
+                        <tbody>
+                            {% for res in crawl_result %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ res.Username }}</td>
+                                <td>{{ res.Tweet }}</td>
+                                <td>{{ res.Category }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+            <br>
+            <br>
+        </div>
+    </body>
+    </html>
